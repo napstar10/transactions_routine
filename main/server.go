@@ -3,15 +3,17 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"transactions_routine/api/handlers"
+	"transactions_routine/config"
 )
 
 type Server struct {
 	router             *gin.Engine
 	accountHandler     *handlers.AccountHandler
 	transactionHandler *handlers.TransactionHandler
+	config             *config.Config
 }
 
-func NewServer(accountHandler *handlers.AccountHandler, transactionHandler *handlers.TransactionHandler, operationHandler *handlers.OperationHandler) *Server {
+func NewServer(conf *config.Config, accountHandler *handlers.AccountHandler, transactionHandler *handlers.TransactionHandler, operationHandler *handlers.OperationHandler) *Server {
 	router := gin.Default()
 
 	// Register routes
@@ -23,7 +25,7 @@ func NewServer(accountHandler *handlers.AccountHandler, transactionHandler *hand
 		v1.POST("/operation/types", operationHandler.CreateOperationType)
 	}
 
-	return &Server{router: router}
+	return &Server{router: router, config: conf}
 }
 
 func (s *Server) Run(port string) error {

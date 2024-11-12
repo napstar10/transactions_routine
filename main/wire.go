@@ -9,7 +9,7 @@ import (
 	"transactions_routine/database/models"
 )
 
-func BuildDependencies() (*Server, error) {
+func InitDependencies() (*Server, error) {
 	wire.Build(
 		config.NewConfig, // Provides Config
 		database.NewDB,   // Provides Database

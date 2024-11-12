@@ -16,7 +16,7 @@ import (
 
 // Injectors from wire.go:
 
-func InitDependencies() (*Server, error) {
+func BuildDependencies() (*Server, error) {
 	configConfig, err := config.NewConfig()
 	if err != nil {
 		return nil, err
@@ -34,6 +34,6 @@ func InitDependencies() (*Server, error) {
 	operationTypeInterface := models.NewOperationType()
 	operationService := services.NewOperationService(db, operationTypeInterface)
 	operationHandler := handlers.NewOperationHandler(operationService)
-	server := NewServer(accountHandler, transactionHandler, operationHandler)
+	server := NewServer(configConfig, accountHandler, transactionHandler, operationHandler)
 	return server, nil
 }
