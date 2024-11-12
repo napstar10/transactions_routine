@@ -8,14 +8,12 @@ import (
 	"gorm.io/gorm"
 	"testing"
 	"transactions_routine/api/dto"
-	"transactions_routine/config"
 	"transactions_routine/database/models"
 )
 
 type OperationTypeServiceTestSuite struct {
 	suite.Suite
 	service            OperationService
-	config             *config.Config
 	db                 *gorm.DB
 	operationTypeModel *models.MockOperationTypeModel
 }
@@ -25,7 +23,6 @@ func TestMyOperationTypeServiceSuite(t *testing.T) {
 }
 
 func (suite *OperationTypeServiceTestSuite) SetupTest() {
-	suite.config, _ = config.NewConfig()
 	suite.db = new(gorm.DB)
 	suite.operationTypeModel = new(models.MockOperationTypeModel)
 	suite.service = NewOperationService(suite.db, suite.operationTypeModel)

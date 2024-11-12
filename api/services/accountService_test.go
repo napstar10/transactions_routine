@@ -6,14 +6,12 @@ import (
 	"github.com/stretchr/testify/suite"
 	"gorm.io/gorm"
 	"testing"
-	"transactions_routine/config"
 	"transactions_routine/database/models"
 )
 
 type AccountServiceTestSuite struct {
 	suite.Suite
 	service      AccountService
-	config       *config.Config
 	db           *gorm.DB
 	accountModel *models.MockAccountsModel
 }
@@ -23,7 +21,6 @@ func TestMyAccountServiceSuite(t *testing.T) {
 }
 
 func (suite *AccountServiceTestSuite) SetupTest() {
-	suite.config, _ = config.NewConfig()
 	suite.db = new(gorm.DB)
 	suite.accountModel = new(models.MockAccountsModel)
 	suite.service = NewAccountService(suite.db, suite.accountModel)
