@@ -7,15 +7,16 @@ import (
 
 type AccountService interface {
 	CreateAccount(documentNo string) (models.Account, error)
-	GetAccount(id int) (interface{}, error)
+	GetAccount(id uint) (interface{}, error)
 }
 
 type accountService struct {
-	db           *gorm.DB // Injected dependency (e.g., DB connection)
-	accountModel *models.Account
+	// Injected dependencies
+	db           *gorm.DB
+	accountModel models.AccountInterface
 }
 
-func NewAccountService(db *gorm.DB, accountModel *models.Account) AccountService {
+func NewAccountService(db *gorm.DB, accountModel models.AccountInterface) AccountService {
 	return &accountService{db: db, accountModel: accountModel}
 }
 
@@ -25,7 +26,7 @@ func (a accountService) CreateAccount(documentNo string) (models.Account, error)
 
 }
 
-func (a accountService) GetAccount(id int) (interface{}, error) {
+func (a accountService) GetAccount(id uint) (interface{}, error) {
 	account, err := a.accountModel.FetchAccount(a.db, id)
 
 	if err != nil {

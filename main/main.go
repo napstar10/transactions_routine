@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	server, err := BuildDependencies()
+	server, err := InitDependencies()
 	if err != nil {
 		log.Fatalf("failed to initialize server: %v", err)
 	}

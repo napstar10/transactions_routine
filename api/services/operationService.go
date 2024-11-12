@@ -7,19 +7,19 @@ import (
 )
 
 type OperationService interface {
-	CreateOperation(request dto.CreateOperationTypeRequest) error
+	CreateOperationType(request dto.CreateOperationTypeRequest) error
 }
 
 type operationService struct {
 	db                 *gorm.DB
-	operationTypeModel *models.OperationType
+	operationTypeModel models.OperationTypeInterface
 }
 
-func NewOperationService(db *gorm.DB, operationTypeModel *models.OperationType) OperationService {
+func NewOperationService(db *gorm.DB, operationTypeModel models.OperationTypeInterface) OperationService {
 	return &operationService{db: db, operationTypeModel: operationTypeModel}
 }
 
-func (o operationService) CreateOperation(request dto.CreateOperationTypeRequest) error {
+func (o operationService) CreateOperationType(request dto.CreateOperationTypeRequest) error {
 	err := o.operationTypeModel.CreateOperationType(o.db, request.OperationTypeId, request.Description)
 
 	if err != nil {

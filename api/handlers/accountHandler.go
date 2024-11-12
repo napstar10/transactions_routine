@@ -11,7 +11,8 @@ import (
 )
 
 type AccountHandler struct {
-	accountService services.AccountService // Injected service
+	// Injected service
+	accountService services.AccountService
 }
 
 func NewAccountHandler(accountService services.AccountService) *AccountHandler {
@@ -39,7 +40,7 @@ func (h *AccountHandler) GetAccount(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
-	account, err := h.accountService.GetAccount(id)
+	account, err := h.accountService.GetAccount(uint(id))
 
 	if err != nil {
 		status := http.StatusInternalServerError

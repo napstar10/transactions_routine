@@ -5,10 +5,10 @@ import (
 	"gorm.io/gorm"
 )
 
-//type AccountInterface interface {
-//	CreateAccount(db *gorm.DB, documentNumber string) Account
-//	FetchAccount(db *gorm.DB, id int) (Account, error)
-//}
+type AccountInterface interface {
+	CreateAccount(db *gorm.DB, documentNumber string) Account
+	FetchAccount(db *gorm.DB, id uint) (Account, error)
+}
 
 type Account struct {
 	AccountID      uint          `gorm:"primaryKey;column:account_id"`
@@ -16,7 +16,7 @@ type Account struct {
 	Transactions   []Transaction `gorm:"foreignKey:AccountID"`
 }
 
-func NewAccount() *Account {
+func NewAccount() AccountInterface {
 	return &Account{}
 }
 
@@ -26,7 +26,7 @@ func (a *Account) CreateAccount(db *gorm.DB, documentNumber string) Account {
 	return account
 }
 
-func (a *Account) FetchAccount(db *gorm.DB, id int) (Account, error) {
+func (a *Account) FetchAccount(db *gorm.DB, id uint) (Account, error) {
 	var account Account
 	if err := db.First(&account, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

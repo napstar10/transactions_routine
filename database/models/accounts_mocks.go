@@ -14,7 +14,7 @@ func (m *MockAccountsModel) CreateAccount(db *gorm.DB, documentNumber string) Ac
 	return args.Get(0).(Account)
 }
 
-func (m *MockAccountsModel) FetchAccount(db *gorm.DB, id int) (Account, error) {
+func (m *MockAccountsModel) FetchAccount(db *gorm.DB, id uint) (Account, error) {
 	args := m.Called(db, id)
 	return args.Get(0).(Account), args.Error(1)
 }

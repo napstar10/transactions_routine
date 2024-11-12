@@ -8,7 +8,8 @@ import (
 )
 
 type OperationHandler struct {
-	operationService services.OperationService // Injected service
+	// Injected service
+	operationService services.OperationService
 }
 
 func NewOperationHandler(accountService services.OperationService) *OperationHandler {
@@ -22,7 +23,7 @@ func (h *OperationHandler) CreateOperationType(c *gin.Context) {
 		return
 	}
 
-	err := h.operationService.CreateOperation(request)
+	err := h.operationService.CreateOperationType(request)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

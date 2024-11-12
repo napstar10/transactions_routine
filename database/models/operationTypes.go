@@ -15,7 +15,11 @@ type OperationType struct {
 	Transactions    []Transaction `gorm:"foreignKey:OperationTypeID"`
 }
 
-func NewOperationType() *OperationType {
+type OperationTypeInterface interface {
+	CreateOperationType(db *gorm.DB, operationTypeId uint, description string) error
+}
+
+func NewOperationType() OperationTypeInterface {
 	return &OperationType{}
 }
 

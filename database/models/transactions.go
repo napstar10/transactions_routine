@@ -15,7 +15,11 @@ type Transaction struct {
 	//OperationType   OperationType `gorm:"foreignKey:OperationTypeID"`
 }
 
-func NewTransaction() *Transaction {
+type TransactionInterface interface {
+	CreateTransaction(db *gorm.DB, accountID uint, operationTypeID uint, amount float64) (Transaction, error)
+}
+
+func NewTransaction() TransactionInterface {
 	return &Transaction{}
 }
 
