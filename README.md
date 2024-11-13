@@ -58,12 +58,9 @@ A test project
   ```
 
     ```
-  curl --location --request GET 'localhost:8080/v1/accounts/3' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "docNum" : "D1110001"
-  }'
+  curl --location 'localhost:8080/v1/accounts/3'
     ```
+  
     ```
   curl --location 'localhost:8080/v1/operation/types' \
   --header 'Content-Type: application/json' \
