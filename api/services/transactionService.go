@@ -9,6 +9,7 @@ import (
 type TransactionService interface {
 	CreateTransaction(transaction dto.CreateTransactionRequest) error
 	GetTransaction(id int) (models.Transaction, error)
+	GetTransactions(accountId uint, lastId uint, limit int) (dto.PaginatedTransactions, error)
 }
 
 type transactionService struct {
@@ -35,4 +36,21 @@ func (t transactionService) CreateTransaction(transactionRequest dto.CreateTrans
 func (t transactionService) GetTransaction(id int) (models.Transaction, error) {
 	//TODO implement me
 	panic("implement me")
+}
+
+func (t transactionService) GetTransactions(accountId uint, lastId uint, limit int) (dto.PaginatedTransactions, error) {
+	transactions, err := t.transactionModel.GetTransactions(t.db, accountId, lastId, limit)
+	if err != nil {
+		return dto.PaginatedTransactions{}, err
+	}
+
+	var nextCursor uint
+	if len(transactions) > 0 {
+		nextCursor = transactions[len(transactions)-1].TransactionID
+	}
+
+	return dto.PaginatedTransactions{
+		Transactions: transactions,
+		NextCursor:   nextCursor,
+	}, nil
 }

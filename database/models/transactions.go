@@ -17,6 +17,7 @@ type Transaction struct {
 
 type TransactionInterface interface {
 	CreateTransaction(db *gorm.DB, accountID uint, operationTypeID uint, amount float64) (Transaction, error)
+	GetTransactions(db *gorm.DB, accountID uint, lastPageTransactionId uint, limit int) ([]Transaction, error)
 }
 
 func NewTransaction() TransactionInterface {
@@ -47,9 +48,23 @@ func (t *Transaction) CreateTransaction(db *gorm.DB, accountID uint, operationTy
 		EventDate:       time.Now(),
 	}
 	if err := db.Create(&transaction).Error; err != nil {
-
 		return Transaction{}, err
 	}
 
 	return transaction, nil
+}
+
+func (t *Transaction) GetTransactions(db *gorm.DB, accountID uint, lastPageTransactionId uint, limit int) ([]Transaction, error) {
+	var transactions []Transaction
+
+	query := db.Where("account_id = ? AND transaction_id > ?", accountID, lastPageTransactionId).
+		Order("transaction_id ASC").
+		Limit(limit).
+		Find(&transactions)
+
+	if query.Error != nil {
+		return transactions, query.Error
+	}
+
+	return transactions, nil
 }
