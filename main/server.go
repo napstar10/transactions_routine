@@ -22,6 +22,7 @@ func NewServer(conf *config.Config, accountHandler *handlers.AccountHandler, tra
 		v1.POST("/accounts", accountHandler.CreateAccount)
 		v1.GET("/accounts/:id", accountHandler.GetAccount)
 		v1.POST("/transactions", transactionHandler.CreateTransaction)
+		v1.GET("/accounts/transactions", transactionHandler.GetTransactions)
 		v1.POST("/operation/types", operationHandler.CreateOperationType)
 	}
 
