@@ -45,6 +45,54 @@ A test project
         - models
     - config
 
+## Api Postman Collection
+- find the postman collection file in root `pismo.postman_collection.json`
+
+    or
+  ```
+  curl --location 'localhost:8080/v1/accounts' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "docNum" : "D1110001"
+  }'
+  ```
+
+    ```
+  curl --location --request GET 'localhost:8080/v1/accounts/3' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "docNum" : "D1110001"
+  }'
+    ```
+    ```
+  curl --location 'localhost:8080/v1/operation/types' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "operation_type_id" : 1,
+  "description" : "Normal Purchase"
+  }'
+  ```
+
+  ```
+  curl --location 'localhost:8080/v1/transactions' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "account_id": 3,
+  "operation_type_id" : 1,
+  "amount" : -5
+  }'
+  ```
+
+  ```
+    curl --location --request GET 'localhost:8080/v1/accounts/transactions?limit=2' \
+    --header 'timeout: 1000' \
+    --header 'Content-Type: application/json' \
+    --data '{
+    "account_id": 3
+    }'
+  ```
+  
+
 ## Request flow
 - A request will reach the server, and redirected to the specific route. Routes are written in `main/server.go`
 - A handler mapped to the route will take up the request. Handler is used to marshall and unmarshall the request only

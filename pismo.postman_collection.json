@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "7a39596f-2450-4d7a-8d81-2817d9d911f6",
+		"name": "pismo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21060595"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/v1/accounts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"docNum\" : \"D1110001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/v1/accounts"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/v1/accounts/3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"docNum\" : \"D1110001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/v1/accounts/3"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/v1/operation/types",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operation_type_id\" : 1,\n    \"description\" : \"Normal Purchase\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/v1/operation/types"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/v1/accounts/transactions?limit=3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"account_id\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/accounts/transactions?limit=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"accounts",
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/v1/transactions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"account_id\": 3,\n    \"operation_type_id\" : 1,\n    \"amount\" : -5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/v1/transactions"
+			},
+			"response": []
+		}
+	]
+}
